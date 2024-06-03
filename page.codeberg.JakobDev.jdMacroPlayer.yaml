@@ -40,10 +40,10 @@ modules:
         url: https://api.github.com/repos/ReimuNotMoe/ydotool/tarball/v1.0.4
         sha256: 6c6ff6d8ca997a514f86efef803ef71b2dd139eea5eba8490e8613424fee49bd
         x-checker-data:
-            type: json
-            url: https://api.github.com/repos/ReimuNotMoe/ydotool/releases/latest
-            version-query: .tag_name
-            url-query: .tarball_url
+          type: json
+          url: https://api.github.com/repos/ReimuNotMoe/ydotool/releases/latest
+          version-query: .tag_name
+          url-query: .tarball_url
     modules:
       - name: scdoc
         buildsystem: simple
@@ -55,18 +55,19 @@ modules:
             url: https://git.sr.ht/~sircmpwn/scdoc/archive/1.11.3.tar.gz
             sha256: 4c5c6136540384e5455b250f768e7ca11b03fdba1a8efc2341ee0f1111e57612
         cleanup:
-          - "*"
+          - '*'
 
   - name: jdMacroPlayer
     buildsystem: simple
     build-commands:
       - pip install --no-deps --no-build-isolation --prefix=$FLATPAK_DEST .
       - python ./install-unix-datafiles.py --prefix=$FLATPAK_DEST
-      - msgfmt --xml --template deploy/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml -d deploy/translations -o ${FLATPAK_DEST}/share/metainfo/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
+      - msgfmt --xml --template deploy/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
+        -d deploy/translations -o ${FLATPAK_DEST}/share/metainfo/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
     sources:
       - type: archive
-        url: https://codeberg.org/JakobDev/jdMacroPlayer/archive/0.1.tar.gz
-        sha256: bb2937316ad0d605c6b96efc84f5d93f619ecd401c52c6c86215a132416d61c0
+        url: https://codeberg.org/JakobDev/jdMacroPlayer/archive/0.2.tar.gz
+        sha256: 0d626a00aae2ba284652d0231cf46cc90d1377af20e83d6066060e6330081619
         x-checker-data:
           type: json
           url: https://codeberg.org/api/v1/repos/JakobDev/jdMacroPlayer/releases/latest
