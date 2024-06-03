@@ -12,25 +12,27 @@ build-options:
     - BASEAPP_REMOVE_PYWEBENGINE=1
 finish-args:
   - --talk-name=org.freedesktop.Flatpak
+  - --filesystem=host-etc:ro
+  - --filesystem=/tmp:rw
   - --socket=fallback-x11
   - --socket=wayland
-  - --device=dri
+  - --device=all
   - --share=ipc
 
 modules:
-  - name: python3-jeepney
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "jeepney" --no-build-isolation
+  - python3-modules.yaml
+
+  - name: flatpak-host-launch
+    buildsystem: meson
     sources:
-      - type: file
-        url: https://files.pythonhosted.org/packages/ae/72/2a1e2290f1ab1e06f71f3d0f1646c9e4634e70e1d37491535e19266e8dc9/jeepney-0.8.0-py3-none-any.whl
-        sha256: c0a454ad016ca575060802ee4d590dd912e35c122fa04e70306de3d076cce755
+      - type: archive
+        url: https://codeberg.org/JakobDev/flatpak-host-launch/archive/1.0.tar.gz
+        sha256: 0e0afab5daed55c421f3cbdc9e3644265e7ebe52586fe599599fd1a7241dd237
         x-checker-data:
-          name: jeepney
-          packagetype: bdist_wheel
-          type: pypi
+          type: json
+          url: https://codeberg.org/api/v1/repos/JakobDev/flatpak-host-launch/releases/latest
+          version-query: .tag_name
+          url-query: .tarball_url
 
   - name: ydotool
     buildsystem: cmake-ninja
@@ -44,6 +46,9 @@ modules:
             url: https://api.github.com/repos/ReimuNotMoe/ydotool/releases/latest
             version-query: .tag_name
             url-query: .tarball_url
+    cleanup:
+      - /lib/systemd
+      - /share/man
     modules:
       - name: scdoc
         buildsystem: simple
@@ -65,8 +70,8 @@ modules:
       - msgfmt --xml --template deploy/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml -d deploy/translations -o ${FLATPAK_DEST}/share/metainfo/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
     sources:
       - type: archive
-        url: https://codeberg.org/JakobDev/jdMacroPlayer/archive/0.1.tar.gz
-        sha256: bb2937316ad0d605c6b96efc84f5d93f619ecd401c52c6c86215a132416d61c0
+        url: https://codeberg.org/JakobDev/jdMacroPlayer/archive/0.2.tar.gz
+        sha256: 0d626a00aae2ba284652d0231cf46cc90d1377af20e83d6066060e6330081619
         x-checker-data:
           type: json
           url: https://codeberg.org/api/v1/repos/JakobDev/jdMacroPlayer/releases/latest
