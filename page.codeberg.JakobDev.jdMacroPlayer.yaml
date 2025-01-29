@@ -26,8 +26,8 @@ modules:
     buildsystem: meson
     sources:
       - type: archive
-        url: https://codeberg.org/JakobDev/flatpak-host-launch/archive/1.0.tar.gz
-        sha256: 0e0afab5daed55c421f3cbdc9e3644265e7ebe52586fe599599fd1a7241dd237
+        url: https://codeberg.org/JakobDev/flatpak-host-launch/archive/1.1.tar.gz
+        sha256: e648109ba3b91fcd5297d5f414ef70a596605f1b59e55e47fa8cd0c298e77dde
         x-checker-data:
           type: json
           url: https://codeberg.org/api/v1/repos/JakobDev/flatpak-host-launch/releases/latest
@@ -42,10 +42,10 @@ modules:
         url: https://api.github.com/repos/ReimuNotMoe/ydotool/tarball/v1.0.4
         sha256: 6c6ff6d8ca997a514f86efef803ef71b2dd139eea5eba8490e8613424fee49bd
         x-checker-data:
-            type: json
-            url: https://api.github.com/repos/ReimuNotMoe/ydotool/releases/latest
-            version-query: .tag_name
-            url-query: .tarball_url
+          type: json
+          url: https://api.github.com/repos/ReimuNotMoe/ydotool/releases/latest
+          version-query: .tag_name
+          url-query: .tarball_url
     cleanup:
       - /lib/systemd
       - /share/man
@@ -60,14 +60,15 @@ modules:
             url: https://git.sr.ht/~sircmpwn/scdoc/archive/1.11.3.tar.gz
             sha256: 4c5c6136540384e5455b250f768e7ca11b03fdba1a8efc2341ee0f1111e57612
         cleanup:
-          - "*"
+          - '*'
 
   - name: jdMacroPlayer
     buildsystem: simple
     build-commands:
       - pip install --no-deps --no-build-isolation --prefix=$FLATPAK_DEST .
       - python ./install-unix-datafiles.py --prefix=$FLATPAK_DEST
-      - msgfmt --xml --template deploy/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml -d deploy/translations -o ${FLATPAK_DEST}/share/metainfo/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
+      - msgfmt --xml --template deploy/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
+        -d deploy/translations -o ${FLATPAK_DEST}/share/metainfo/page.codeberg.JakobDev.jdMacroPlayer.metainfo.xml
     sources:
       - type: archive
         url: https://codeberg.org/JakobDev/jdMacroPlayer/archive/0.2.tar.gz
